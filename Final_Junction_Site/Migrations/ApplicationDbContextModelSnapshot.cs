@@ -63,7 +63,7 @@ namespace Final_Junction_Site.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("RatingID")
+                    b.Property<int>("RatingId")
                         .HasColumnType("int");
 
                     b.Property<string>("SiteName")

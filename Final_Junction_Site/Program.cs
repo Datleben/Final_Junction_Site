@@ -9,8 +9,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlSer
 builder.Services.AddControllersWithViews();
 
 //Add when Rating Interface and Repository are created
-builder.Services.AddTransient<Rating>();
-builder.Services.AddTransient<SiteRepository>(); // pg 18, add for each table?
+builder.Services.AddTransient<IRatingRepository, RatingRepository>();
+builder.Services.AddTransient<ISiteRepository, SiteRepository>(); // pg 18, add for each table?
 //builder.Services.AddTransient<TestDBRepository>();
 
 var app = builder.Build();
@@ -30,9 +30,12 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+//app.MapControllerRoute(
+//    name: "default",
+//    pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Site}/{action=List}/{id?}");
 
 app.Run();
 

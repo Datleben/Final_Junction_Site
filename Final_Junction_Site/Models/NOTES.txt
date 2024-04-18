@@ -1,0 +1,23 @@
+﻿Currently, program is functioning, grabbing the data from the "Site" Table and putting it in the List() View
+using the SiteController. We're gonna have to figure out how to attach the reviews. - Micah
+
+
+
+
+
+-- SQL COMMANDS --
+
+Adding Values to Sites (SiteId column is auto-filled):
+
+INSERT INTO Site (RatingId, SiteName, ThumbnailURL, URL, Description, TrendScore, Tags) 
+VALUES (1, 'SiteName1', ' ', ' ', 'Site 1 Description', 10.0, 'Tag1,Tag2,Tag2');
+
+Adding Values to Ratings:
+
+
+Update a Row in Store:
+
+update site
+SET URL = 'https://www.tentree.ca/pages/about', ThumbnailURL = 'https://cdn.shopify.com/s/files/1/0070/7032/files/shopify-store-tentree.png?v=1694801779'
+where SiteId = 2
+

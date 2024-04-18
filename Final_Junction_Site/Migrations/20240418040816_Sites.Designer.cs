@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Final_Junction_Site.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240418035444_Sites")]
+    [Migration("20240418040816_Sites")]
     partial class Sites
     {
         /// <inheritdoc />
@@ -66,7 +66,7 @@ namespace Final_Junction_Site.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("RatingID")
+                    b.Property<int>("RatingId")
                         .HasColumnType("int");
 
                     b.Property<string>("SiteName")

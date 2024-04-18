@@ -35,7 +35,7 @@ namespace Final_Junction_Site.Migrations
                 {
                     SiteId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    RatingID = table.Column<int>(type: "int", nullable: false),
+                    RatingId = table.Column<int>(type: "int", nullable: false),
                     SiteName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ThumbnailURL = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),

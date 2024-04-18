@@ -1,6 +1,6 @@
 ﻿namespace Final_Junction_Site.Models
 {
-    public class RatingRepository
+    public class RatingRepository : IRatingRepository
     {
         public ApplicationDbContext context;
         public RatingRepository(ApplicationDbContext ctx)
