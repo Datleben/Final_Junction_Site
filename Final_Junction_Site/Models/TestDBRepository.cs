@@ -9,8 +9,5 @@ namespace Final_Junction_Site.Models
             context = ctx;
         }
         public IEnumerable<TestDBClass> TestDBClasses => context.TestDBClass;
-        
-
-        //sadasdas 
     }
 }
