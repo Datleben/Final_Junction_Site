@@ -7,6 +7,9 @@ namespace Final_Junction_Site.Models
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
         public DbSet<Site> Site { get; set; }
-        public DbSet<TestDBClass> TestDBClass { get; set; } // remove when done testing, and add Site (above line). Will need to add other tables too
+
+        public DbSet<Rating> Rating { get; set; }
+
+        //public DbSet<TestDBClass> TestDBClass { get; set; } // remove when done testing, and add Site (above line). Will need to add other tables too
     }
 }

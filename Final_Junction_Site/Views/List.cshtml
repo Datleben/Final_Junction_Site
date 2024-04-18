@@ -3,13 +3,13 @@
 *@
 @{
 }
-@model IEnumerable<TestDBClass>
+@model IEnumerable<Site>
 @foreach (var p in Model)
 {
     <div>
-        <h3>@p.TestName</h3>
-        @p.TestDBClassId
-        @p.TestDescription
+        <h3>@p.SiteName</h3>
+        @p.SiteId
+        @p.Description
         @* <h4>@p.Price.ToString("c")</h4> *@
     </div>
 }

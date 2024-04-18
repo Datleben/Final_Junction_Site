@@ -7,6 +7,6 @@ namespace Final_Junction_Site.Models
 {
     public interface ITestDBRepository
     {
-        IEnumerable<TestDBClass> TestDBClasses { get; }
+        //IEnumerable<TestDBClass> TestDBClasses { get; }
     }
 }

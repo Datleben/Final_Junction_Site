@@ -14,7 +14,7 @@ namespace Final_Junction_Site.Controllers
         {
             repository = repo;
         }
-        public ViewResult List() => View(repository.TestDBClasses);
+        //public ViewResult List() => View(repository.TestDBClasses);
     }
 
 }
