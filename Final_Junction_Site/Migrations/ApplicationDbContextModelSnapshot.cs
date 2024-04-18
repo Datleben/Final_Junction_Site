@@ -39,7 +39,7 @@ namespace Final_Junction_Site.Migrations
 
                     b.HasKey("TestDBClassId");
 
-                    b.ToTable("TestDBClass");
+                    b.ToTable("TestDBClass", (string)null);
                 });
 #pragma warning restore 612, 618
         }

@@ -33,3 +33,9 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+
+// COMMANDS FOR NUGET DATABASE
+//1. Add-Migration [Initial]
+// In step 1, Initial is first pass (Migration) of data to the database (creating info for making the table), then,
+// use a different name in the brackets to begin another Migration
+//2. Update-Database
