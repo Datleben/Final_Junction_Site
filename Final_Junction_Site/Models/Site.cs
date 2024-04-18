@@ -8,6 +8,7 @@ namespace Final_Junction_Site.Models
     public class Site
     {
         public int SiteId { get; set; }
+        public string ThumbnailURL { get; set; }
         public string Name { get; set; }
         public string URL { get; set; }
         public string Description { get; set; }

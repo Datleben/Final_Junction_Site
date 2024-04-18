@@ -7,7 +7,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlSer
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-//builder.Services.AddTransient<ISiteRepository>(); // pg 18, add for each table?
+
+builder.Services.AddTransient<SiteRepository>(); // pg 18, add for each table?
 builder.Services.AddTransient<TestDBRepository>();
 
 var app = builder.Build();
