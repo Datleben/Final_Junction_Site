@@ -14,7 +14,12 @@ namespace Final_Junction_Site.Controllers
         {
             repository = repo;
         }
-        public ViewResult List() => View(repository.Sites);
+        public ViewResult List()
+        {
+            var sites = repository.Sites ?? Enumerable.Empty<Site>().ToList();
+            return View(sites);
+        }
+
     }
 
 }
