@@ -11,5 +11,6 @@
         public bool IsNew { get; set; }
         public bool OnSale { get; set; }
         public int Rating { get; set; }
+        public object DateAdded { get; internal set; }
     }
 }
