@@ -11,12 +11,16 @@ namespace Final_Junction_Site.Controllers
         {
             // Sample data
             new CategoryProductModel { ProductId = 1, Name = "Product 1", Price = 9.99m, TrendScore = 5, Category = "Electronics" },
-            new CategoryProductModel { ProductId = 2, Name = "Product 2", Price = 19.99m, TrendScore = 15, Category = "Electronics" },
-            
+            new CategoryProductModel { ProductId = 2, Name = "Product 2", Price = 19.99m, TrendScore = 15, Category = "Jeans'n Stuff" },
         };
 
+        public CategoryController(IWebHostEnvironment environment)
+        {
+
+        }
         public IActionResult CategoryProducts(string category)
         {
+
             var filteredProducts = _products.Where(p => p.Category == category).OrderByDescending(p => p.TrendScore).ToList();
             return View(filteredProducts);
         }
