@@ -16,7 +16,11 @@
     }
 
     .nav-item {
-        background-color: #4B746E;
+        background-color: #5A8A83;
+    }
+
+    .nav-block {
+        background-color: #5A8A83; @**@
     }
 
     .black-nav {
@@ -66,14 +70,15 @@
                 <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
             </li> *
         </ul>*@
+
         <ul class="nav justify-content-end border-bottom box-shadow mynavbar">
-            <li>
+            <li class="nav-block">
                 <a class="nav-link active black-nav" asp-action="Index">Home</a>
             </li>
-            <li>
+            <li class="nav-block">
                 <a class="nav-link active black-nav" asp-action="Index">Search Stores</a> @*Change asp-action to "Stores" View when created*@
             </li>
-            <li>
+            <li class="nav-block">
                 <a class="nav-link active black-nav" asp-action="Index">Account</a> @*Change asp-action to "Account" View when created*@
             </li>
         </ul>
