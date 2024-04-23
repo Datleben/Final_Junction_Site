@@ -8,10 +8,18 @@
 	
 	<ItemGroup>
 		<Folder Include="wwwroot\images\" />
-	</ItemGroup>
-	
-	<ItemGroup>
 	  <None Include="wwwroot\images\default-product.jpg" />
+	  <None Include="wwwroot\Images\book.jpg" />
+	  <None Include="wwwroot\Images\flame.png" />
+	  <None Include="wwwroot\Images\flowers.png" />
+	  <None Include="wwwroot\Images\Junction_logo_fixed_ver_Green.png" />
+	  <None Include="wwwroot\Images\makeup.jpg" />
+	  <None Include="wwwroot\Images\mint_mountains.jpg" />
+	  <None Include="wwwroot\Images\note.jpg" />
+	  <None Include="wwwroot\Images\Searching_glass.png" />
+	  <None Include="wwwroot\Images\shirt.png" />
+	  <None Include="wwwroot\Images\sofa.png" />
+	  <None Include="wwwroot\Images\toys.jpg" />
 	</ItemGroup>
 
 	<ItemGroup>
