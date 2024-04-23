@@ -7,12 +7,32 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Final_Junction_Site.styles.css" asp-append-version="true" />
+    
 </head>
+<style>
+    .mynavbar {
+        background-color: #6AA49B;
+        height: 5%;
+    }
+
+    .nav-item {
+        background-color: #4B746E;
+    }
+
+    .black-nav {
+        color: black;
+        font-weight: 600;
+    }
+
+    .border-item {
+        border: 1px solid black;
+    }
+</style>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        @* <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Final_Junction_Site</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Junction.Shop</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -28,7 +48,36 @@
                     </ul>
                 </div>
             </div>
-        </nav>
+        </nav> *@
+
+        @* TESTING A NAV TYPE *@
+        @*<ul class="nav justify-content-end border-bottom box-shadow mynavbar">
+            <li class="nav-item border-item">
+                @* <span><a class="nav-link active" asp-action="Index"><img src="Images/Junction_logo_fixed_ver_Green.png" /></a></span> *
+                <a class="nav-link active black-nav" asp-action="Index">Home</a>
+            </li>
+            <li class="nav-item border-item">
+                <a class="nav-link active black-nav">Active</a>
+            </li>
+            <li class="nav-item border-item">
+                <a class="nav-link black-nav" href="#">Link</a>
+            </li>
+            @* <li class="nav-item">
+                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+            </li> *
+        </ul>*@
+        <ul class="nav justify-content-end border-bottom box-shadow mynavbar">
+            <li>
+                <a class="nav-link active black-nav" asp-action="Index">Home</a>
+            </li>
+            <li>
+                <a class="nav-link active black-nav" asp-action="Index">Search Stores</a> @*Change asp-action to "Stores" View when created*@
+            </li>
+            <li>
+                <a class="nav-link active black-nav" asp-action="Index">Account</a> @*Change asp-action to "Account" View when created*@
+            </li>
+        </ul>
+        
     </header>
     <div class="container">
         <main role="main" class="pb-3">
@@ -38,7 +87,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2024 - Final_Junction_Site - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2024 - Cyber Ospreys - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
