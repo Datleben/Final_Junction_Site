@@ -7,6 +7,8 @@
   </PropertyGroup>
 	
 	<ItemGroup>
+		<Folder Include="wwwroot\images\" />
+	  <None Include="wwwroot\images\default-product.jpg" />
 	  <None Include="wwwroot\Images\book.jpg" />
 	  <None Include="wwwroot\Images\flame.png" />
 	  <None Include="wwwroot\Images\flowers.png" />
