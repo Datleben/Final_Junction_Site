@@ -21,7 +21,18 @@
         <p>Check out our <a asp-controller="Category" asp-action="CategoryProducts" asp-route-category="Home Appliances">!! Crazy Home Appliances WOW !!</a></p>
         <p>Amazing DEALS WOW</a></p>
         <p>Explore more with our <a asp-controller="SiteList" asp-action="ListSites">Site Listings</a></p>
+        <p> </p>
+        <p>
+            @using (Html.BeginForm("ResultPage", "ResultPage", FormMethod.Get))
+            {
+                <input type="text" name="searchQuery" placeholder="Search products..." required>
+                <button type="submit">Search</button>
+            }
+        </p>
     </div>
+
+
+
 
 
 </body>
