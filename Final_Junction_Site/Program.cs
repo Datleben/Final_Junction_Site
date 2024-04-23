@@ -30,12 +30,22 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+// Don't change default route
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
 //app.MapControllerRoute(
 //    name: "default",
 //    pattern: "{controller=Site}/{action=List}/{id?}");
+
+// Define custom route for ResultPage
+app.MapControllerRoute(
+    name: "resultpage",
+    pattern: "ResultPage/{searchQuery?}",
+    defaults: new { controller = "ResultPage", action = "ResultPage" }
+);
+
 
 app.Run();
 
