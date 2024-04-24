@@ -6,6 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Add services to the container.
+builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews();
 
 //Add when Rating Interface and Repository are created
@@ -45,7 +46,8 @@ app.MapControllerRoute(
     pattern: "ResultPage/{searchQuery?}",
     defaults: new { controller = "ResultPage", action = "ResultPage" }
 );
-
+app.MapDefaultControllerRoute();
+app.MapRazorPages();
 
 app.Run();
 
