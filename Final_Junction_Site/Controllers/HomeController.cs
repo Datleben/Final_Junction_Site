@@ -16,7 +16,7 @@ namespace Final_Junction_Site.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return View("Index");
         }
 
         public IActionResult Privacy()
