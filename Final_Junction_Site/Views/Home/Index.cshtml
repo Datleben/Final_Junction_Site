@@ -13,14 +13,15 @@
     }
 
     .mountains {
-        /* background: url("mint_mountains.jpg") no-repeat center; */
-        background: url("https://th.bing.com/th/id/R.10ed0491c2944e03be007f7c4fc172bc?rik=MUj2LI4CoU6nnw&riu=http%3a%2f%2fwww.100hdwallpapers.com%2fwallpapers%2f3840x2160%2fmountains_lscape_minimal_4k-hd_wallpapers.jpg&ehk=U78yDTkBh4ut%2f9jsucbrAFt9JJZ070hckCLMh1b2j1E%3d&risl=&pid=ImgRaw&r=0") no-repeat center;
+        background: url("/Images/mint_mountains.jpg") no-repeat center;
+        /* background: url("https://th.bing.com/th/id/R.10ed0491c2944e03be007f7c4fc172bc?rik=MUj2LI4CoU6nnw&riu=http%3a%2f%2fwww.100hdwallpapers.com%2fwallpapers%2f3840x2160%2fmountains_lscape_minimal_4k-hd_wallpapers.jpg&ehk=U78yDTkBh4ut%2f9jsucbrAFt9JJZ070hckCLMh1b2j1E%3d&risl=&pid=ImgRaw&r=0") no-repeat center; */
+        /* background: url("~/Images/mint_mountains.jpg") no-repeat center; */
         height: 60vh;
         background-size: cover;
         filter: blur(2px);
     }
 
-    .mountains-foreground{
+    .mountains-foreground {
         text-align: center;
         position: absolute;
         top: 30%;
@@ -29,7 +30,7 @@
         z-index: 1;
     }
 
-    .search-bar{
+    .search-bar {
         border-radius: 25px;
         border: 1px;
         padding-left: 20px;
@@ -41,7 +42,7 @@
         box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
     }
 
-    .search-button{
+    .search-button {
         height: 45px;
         width: 75px;
         color: black;
@@ -49,6 +50,95 @@
         border-radius: 25px;
         background-color: dodgerblue;
         box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+    }
+
+    .category-heading {
+        font-style: italic;
+        font-weight: 300;
+        color: rgba(0, 0, 0, .7);
+    }
+
+    .tile-container {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+        /* margin-top: 5vh; */
+    }
+
+    .tile {
+        display: flex; /* Added to enable Flexbox */
+        align-items: center; /* Centers content vertically */
+        justify-content: center; /* Centers content horizontally */
+        background: #f0f0f0; /* Example background color */
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 25px;
+        height: 60px; /* Fixed height of the tile */
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        font-weight: bolder;
+        color: white;
+        font-size: xx-large;
+        /* Removed vertical-align as it's not needed with Flexbox */
+    }
+
+    .tile1 {
+        background-color: blueviolet;
+        background-image: url("/Images/flame.png");
+        /* font-family:'High Tower Text'; */
+    }
+
+    .tile2 {
+        background-color: mediumseagreen;
+        background-image: url("/Images/pcb.jpg");
+    }
+
+    .tile3 {
+        background-size: auto 200%;
+        background-position: 50% 3%;
+        background-color: mediumpurple;
+        background-image: url("/Images/shirt.png");
+    }
+
+    .tile4 {
+        background-size: auto 270%;
+        background-position: 50% 30%;
+        background-color: darkgrey;
+        background-image: url("/Images/book.png");
+    }
+
+    .tile5 {
+        font-size: x-large;
+        background-size: auto 270%;
+        background-color: mediumblue;
+        background-image: url("/Images/sofa.png");
+    }
+
+    .tile6 {
+        background-position: 50% 60%;
+        font-size: x-large;
+        background-size: auto 270%;
+        background-blend-mode: overlay;
+        background-color: cornflowerblue;
+        background-image: url("/Images/note.png");
+    }
+
+    .tile7 {
+        background-size: auto 270%;
+        background-position: 30% 35%;
+        background-color: hotpink;
+        background-blend-mode: overlay;
+        /* background-color: color-mix(in srgb, hotpink, transparent 70%); */
+        background-image: url("/Images/makeup.png");
+    }
+
+    .tile8 {
+        font-size: larger;
+        color: antiquewhite;
+        background-color: lightskyblue;
+        background-image: url("/Images/toys.png");
     }
     
 </style>
@@ -59,7 +149,7 @@
     <a asp-controller="Site\List">test</a> *@
     <div class="text-center mountains-foreground">
         @* <h1 class="display-4">Junction.shop [image]</h1> *@
-        <img src="~/Images/Junction_logo_fixed_ver_Green.png" />
+        <img src="~/Images/Junction_logo_fixed_ver_Green.png"/>
         <p>
             @using (Html.BeginForm("ResultPage", "ResultPage", FormMethod.Get))
             {
@@ -68,18 +158,32 @@
             }
         </p>
     </div>
-    <section class="mountains">
-    </section>
+    <section class="mountains"></section>
+
+    <div class="category-heading" style="margin-top: 5vh; text-align: center;">
+        <h3>Or, select a category...</h3>
+    </div>
+    <div class="tile-container">
+        <button class="tile tile1">Trending</button>
+        @* <button class="tile tile2" asp-action="CategoryProducts" asp-route-category="Electronics">Electronics</button> *@
+        <button class="tile tile2" onclick="location.href='@Url.Action("CategoryProducts", "Category", "electronics")'">Electronics</button>
+        <button class="tile tile3" asp-controller="Category" asp-action="CategoryProducts" asp-route-category="Clothes">Fashion</button>
+        <button class="tile tile4">Books</button>
+        <button class="tile tile5">Interior Design</button>
+        <button class="tile tile6">Music</button>
+        <button class="tile tile7">Beauty</button>
+        <button class="tile tile8">Toys and Games</button>
+    </div>
+
     
         
 
-    <div>
+    @* <div>
         <p>Check out our <a asp-controller="Category" asp-action="CategoryProducts" asp-route-category="Electronics">Electronics Category</a></p>
         <p>Check out our <a asp-controller="Category" asp-action="CategoryProducts" asp-route-category="Clothes">!! Jeans'n Stuff !!</a></p>
         <p>Check out our <a asp-controller="Category" asp-action="CategoryProducts" asp-route-category="Home Appliances">!! Crazy Home Appliances WOW !!</a></p>
         <p>Explore more with our <a asp-controller="SiteList" asp-action="ListSites">Site Listings</a></p>
-    </div>
-    <p> </p>
+    </div> *@
 
 
 
