@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<Final_Junction_Site.Models.CategoryProductModel>
+@* @model IEnumerable<Site> *@
 
 @{
     ViewData["Title"] = "Search Results";
@@ -16,6 +17,25 @@
     else
     {
         <div class="row row-cols-1 row-cols-md-3 g-4">
+            @* <table>
+                <thead>
+                    <tr>
+                        <td>Site Name</td>
+                        <td>Site Description</td>
+                        <td>Site Link</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Site s in Model)
+                    {
+                        <tr>
+                            <td>@s.SiteName</td>
+                            <td>@s.Description</td>
+                            <td><button href="@s.URL">Site Link</button></td>
+                        </tr>
+                    }
+                </tbody>
+            </table> *@
             @foreach (var item in Model)
             {
                 <div class="col">
