@@ -164,15 +164,15 @@
         <h3>Or, select a category...</h3>
     </div>
     <div class="tile-container">
-        <button class="tile tile1">Trending</button>
+        <button class="tile tile1" onclick="location.href='@Url.Action("CategoryProducts", "Category", new {category = "Trending"})'">Trending</button>
         @* <button class="tile tile2" asp-action="CategoryProducts" asp-route-category="Electronics">Electronics</button> *@
-        <button class="tile tile2" onclick="location.href='@Url.Action("CategoryProducts", "Category", "electronics")'">Electronics</button>
-        <button class="tile tile3" asp-controller="Category" asp-action="CategoryProducts" asp-route-category="Clothes">Fashion</button>
-        <button class="tile tile4">Books</button>
-        <button class="tile tile5">Interior Design</button>
-        <button class="tile tile6">Music</button>
-        <button class="tile tile7">Beauty</button>
-        <button class="tile tile8">Toys and Games</button>
+        <button class="tile tile2" onclick="location.href='@Url.Action("CategoryProducts", "Category", new {category = "Electronics"})'">Electronics</button>
+        <button class="tile tile3" onclick="location.href='@Url.Action("CategoryProducts", "Category", new {category = "Clothes"})'">Fashion</button>
+        <button class="tile tile4" onclick="location.href='@Url.Action("CategoryProducts", "Category", new {category = "Books"})'">Books</button>
+        <button class="tile tile5" onclick="location.href='@Url.Action("CategoryProducts", "Category", new {category = "Interior Design"})'">Interior Design</button>
+        <button class="tile tile6" onclick="location.href='@Url.Action("CategoryProducts", "Category", new {category = "Music"})'">Music</button>
+        <button class="tile tile7" onclick="location.href='@Url.Action("CategoryProducts", "Category", new {category = "Beauty"})'">Beauty</button>
+        <button class="tile tile8" onclick="location.href='@Url.Action("CategoryProducts", "Category", new {category = "Toys And Games"})'">Toys and Games</button>
     </div>
 
     

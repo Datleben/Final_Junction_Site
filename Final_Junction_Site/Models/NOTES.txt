@@ -12,6 +12,11 @@ Adding Values to Sites (SiteId column is auto-filled):
 INSERT INTO Site (RatingId, SiteName, ThumbnailURL, URL, Description, TrendScore, Tags) 
 VALUES (1, 'SiteName1', ' ', ' ', 'Site 1 Description', 10.0, 'Tag1,Tag2,Tag2');
 
+Adding values to Rating (RatingId is auto-filled):
+
+insert into Rating (SiteId, CustomerId, Stars, ReviewText)
+Values (1, 1, 4, 'ReviewText');
+
 Adding Values to Ratings:
 
 
