@@ -1,4 +1,4 @@
-﻿CurrentlyCurrently, program is functioning, grabbing the data from the "Site" Table and putting it in the List() View
+﻿Currently, program is functioning, grabbing the data from the "Site" Table and putting it in the List() View
 using the SiteController. We're gonna have to figure out how to attach the reviews. - Micah
 
 
