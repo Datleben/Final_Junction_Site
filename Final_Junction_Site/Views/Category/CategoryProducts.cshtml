@@ -12,7 +12,6 @@
         <div class="col-md-12">
             <div class="d-flex justify-content-between align-items-center">
                 <div>Showing @Model.Count sites</div>
-                <!-- Sorting dropdown can be updated or removed based on your requirements -->
             </div>
         </div>
     </div>
@@ -32,6 +31,8 @@
                     </div>
                     <div class="card-footer">
                         <a href="@site.URL" class="btn btn-primary" target="_blank">Visit Site</a>
+                        <!-- New Details Button, using SiteController's Details action -->
+                        <a asp-action="Details" asp-controller="Site" asp-route-SiteId="@site.SiteId" class="btn btn-secondary">Show Details</a>
                     </div>
                 </div>
             </div>
