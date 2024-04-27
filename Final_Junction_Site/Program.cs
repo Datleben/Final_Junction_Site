@@ -11,7 +11,7 @@ builder.Services.AddControllersWithViews();
 
 //Add when Rating Interface and Repository are created
 builder.Services.AddTransient<IRatingRepository, EFRatingRepository>();
-builder.Services.AddTransient<ISiteRepository, FakeSiteRepository>(); // pg 18, add for each table?
+builder.Services.AddTransient<ISiteRepository, SiteRepository>(); // pg 18, add for each table?
 //builder.Services.AddTransient<TestDBRepository>();
 
 var app = builder.Build();
@@ -33,9 +33,6 @@ app.UseAuthorization();
 
 // REMOVE THIS DEFAULT ROUTE (ONLY FOR TESTING)
 // remove default from sitecontroller details method parameter
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Site}/{action=Details}");
 
 // Don't change default route
 app.MapControllerRoute(
