@@ -1,123 +1,42 @@
-﻿@model List<Final_Junction_Site.Models.CategoryProductModel>
+﻿@model List<Final_Junction_Site.Models.Site>
 
 @{
-    ViewData["Title"] = "Category Products";
+    ViewData["Title"] = "Category Sites";
 }
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.5.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-@{
-    // Determine the minimum and maximum prices for the slider
-    decimal minPrice = Model.Any() ? Model.Min(p => p.Price) : 0;
-    decimal maxPrice = Model.Any() ? Model.Max(p => p.Price) : 0;
-}
-
 <div class="container mt-5">
-    <h2 class="mb-4">Browse Our Products</h2>
+    <h2 class="mb-4">Browse Sites by Category</h2>
     <div class="row mb-3">
-        <div class="col-md-3">
-            <h4>Filters</h4>
-            <label for="minPrice">Min Price: <span id="minPriceValue">@minPrice</span></label>
-            <input type="range" class="form-range" id="minPriceRange" min="@minPrice" max="@maxPrice" value="@minPrice"
-                   oninput="updatePriceRangeValue('minPriceValue', this.value)" onchange="filterByPrice()">
-            <label for="maxPrice">Max Price: <span id="maxPriceValue">@maxPrice</span></label>
-            <input type="range" class="form-range" id="maxPriceRange" min="@minPrice" max="@maxPrice" value="@maxPrice"
-                   oninput="updatePriceRangeValue('maxPriceValue', this.value)" onchange="filterByPrice()">
-        </div>
-        <div class="col-md-9">
+        <div class="col-md-12">
             <div class="d-flex justify-content-between align-items-center">
-                <div>Showing @Model.Count products</div>
-
-                <select class="form-select w-auto" onchange="updateSortOrder(this.value)" id="sortOrderSelect" data-url-template="@Url.Action("CategoryProducts", "Category", new { category = ViewBag.Category, sortOrder = "-sortOrder-" })">
-                    <option value="">Default Sorting</option>
-                    <option value="priceLowHigh" selected="@(ViewData["CurrentSort"]?.ToString() == "priceLowHigh" ? "selected" : null)">Price: Low to High</option>
-                    <option value="priceHighLow" selected="@(ViewData["CurrentSort"]?.ToString() == "priceHighLow" ? "selected" : null)">Price: High to Low</option>
-                    <option value="newest" selected="@(ViewData["CurrentSort"]?.ToString() == "newest" ? "selected" : null)">Newest</option>
-                </select>
+                <div>Showing @Model.Count sites</div>
+                <!-- Sorting dropdown can be updated or removed based on your requirements -->
             </div>
         </div>
+    </div>
 
-        <script>
-            function updateSortOrder(selectedSortOrder) {
-                var selectElement = document.getElementById('sortOrderSelect');
-                var urlTemplate = selectElement.getAttribute('data-url-template');
-                var targetUrl = urlTemplate.replace('-sortOrder-', encodeURIComponent(selectedSortOrder));
-                location.href = targetUrl;
-            }
-            function updatePriceRangeValue(spanId, value) {
-                document.getElementById(spanId).textContent = value;
-            }
-
-            function filterByPrice() {
-                var minPriceSlider = document.getElementById('minPriceRange');
-                var maxPriceSlider = document.getElementById('maxPriceRange');
-                var minPrice = parseFloat(minPriceSlider.value);
-                var maxPrice = parseFloat(maxPriceSlider.value);
-
-                // Validate that minPrice is not greater than maxPrice before filtering
-                if (minPrice > maxPrice) {
-                    alert('Minimum price cannot be greater than maximum price.');
-                    // Optionally reset the maxPrice to the top of the range
-                    maxPriceSlider.value = maxPriceSlider.max;
-                    document.getElementById('maxPriceValue').textContent = maxPriceSlider.max;
-                    return;
-                }
-
-                var category = '@ViewBag.Category';
-                var sortOrder = '@ViewData["CurrentSort"]?.ToString()';
-
-                location.href = '@Url.Action("CategoryProducts", "Category")' +
-                    `?category=${encodeURIComponent(category)}&sortOrder=${encodeURIComponent(sortOrder)}&minPrice=${encodeURIComponent(minPrice)}&maxPrice=${encodeURIComponent(maxPrice)}`;
-            }
-        </script>
-            <div class="row row-cols-1 row-cols-md-3 g-4">
-                @foreach (var item in Model)
-                {
-                    <div class="col">
-                        <div class="card h-100">
-                            <div class="card-header">
-                                <img src="@Url.Content(item.ImageUrl ?? "~/images/default-product.jpg")" class="card-img-top" alt="Product Image">
-                                @if (item.IsNew)
-                                {
-                                    <span class="badge bg-success">New</span>
-                                }
-                                @if (item.OnSale)
-                                {
-                                    <span class="badge bg-danger">Sale</span>
-                                }
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">@item.Name</h5>
-                                <div class="my-2">
-                                    @for (int i = 0; i < 5; i++)
-                                    {
-                                        <i class="@(i < item.Rating ? "fas" : "far") fa-star"></i>
-                                    }
-                                </div>
-                                <p class="card-text"><strong>Price:</strong> @Html.Raw(item.Price.ToString("C"))</p>
-                                <p class="card-text"><small class="text-muted">Category: @item.Category</small></p>
-                                <a href="@Url.Action("Details", new { id = item.ProductId })" class="btn btn-primary">View Details</a>
-                            </div>
-                            <div class="card-footer">
-                                <button class="btn btn-outline-secondary btn-sm" onclick="addToCart(@item.ProductId)">Add to Cart</button>
-                                <button class="btn btn-outline-info btn-sm" onclick="addToWishlist(@item.ProductId)">Save for Later</button>
-                            </div>
-                        </div>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        @foreach (var site in Model)
+        {
+            <div class="col">
+                <div class="card h-100">
+                    <img src="@site.ThumbnailURL" class="card-img-top" alt="@site.SiteName">
+                    <div class="card-body">
+                        <h5 class="card-title">@site.SiteName</h5>
+                        <p class="card-text">@site.Description</p>
+                        <p class="card-text">
+                            <small class="text-muted">Trend Score: @site.TrendScore</small>
+                        </p>
                     </div>
-                }
+                    <div class="card-footer">
+                        <a href="@site.URL" class="btn btn-primary" target="_blank">Visit Site</a>
+                    </div>
+                </div>
             </div>
-            <!-- Pagination or infinite scroll -->
-        </div>
+        }
     </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.5.0/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-    function addToCart(productId) {
-        // Implement add to cart functionality
-    }
-
-    function addToWishlist(productId) {
-        // Implement add to wishlist functionality
-    }
-</script>

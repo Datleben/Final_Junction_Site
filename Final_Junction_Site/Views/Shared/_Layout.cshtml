@@ -4,6 +4,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Final_Junction_Site</title>
+    <style>
+        .input-validation-error {
+            border-color: red;
+            background-color: #fee;
+        }
+    </style>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Final_Junction_Site.styles.css" asp-append-version="true" />
@@ -79,7 +85,7 @@
                 <a class="nav-link active black-nav" asp-action="Index">Search Stores</a> @*Change asp-action to "Stores" View when created*@
             </li>
             <li class="nav-block">
-                <a class="nav-link active black-nav" asp-action="Index">Account</a> @*Change asp-action to "Account" View when created*@
+                <a class="nav-link active black-nav" asp-controller="Account" asp-action="Details">Account</a> @*Change asp-action to "Account" View when created*@
             </li>
         </ul>
         

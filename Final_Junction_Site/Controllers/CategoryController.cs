@@ -1,78 +1,52 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using System.Linq;
 using Final_Junction_Site.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Final_Junction_Site.Controllers
 {
     public class CategoryController : Controller
     {
-        // TEST : TEST : TEST
-        private static List<CategoryProductModel> _products = new List<CategoryProductModel>
+        private readonly ApplicationDbContext _context;
+
+        public CategoryController(ApplicationDbContext context)
         {
-            // Electronics category products
-            new CategoryProductModel { ProductId = 1, Name = "Smartphone", Price = 299.99m, TrendScore = 80, Category = "Electronics" },
-            new CategoryProductModel { ProductId = 2, Name = "Laptop", Price = 999.99m, TrendScore = 70, Category = "Electronics" },
-            new CategoryProductModel { ProductId = 3, Name = "Tablet", Price = 199.99m, TrendScore = 65, Category = "Electronics" },
-            new CategoryProductModel { ProductId = 4, Name = "Smart Watch", Price = 199.99m, TrendScore = 75, Category = "Electronics" },
-            new CategoryProductModel { ProductId = 5, Name = "Bluetooth Headphones", Price = 49.99m, TrendScore = 60, Category = "Electronics" },
-            new CategoryProductModel { ProductId = 6, Name = "E-reader", Price = 129.99m, TrendScore = 55, Category = "Electronics" },
-    
-            // Jeans'n Stuff category products
-            new CategoryProductModel { ProductId = 7, Name = "Skinny Jeans", Price = 59.99m, TrendScore = 85, Category = "Clothes" },
-            new CategoryProductModel { ProductId = 8, Name = "Denim Jacket", Price = 89.99m, TrendScore = 78, Category = "Clothes" },
-            new CategoryProductModel { ProductId = 9, Name = "Leather Belt", Price = 19.99m, TrendScore = 60, Category = "Clothes" },
-            new CategoryProductModel { ProductId = 10, Name = "Bootcut Jeans", Price = 59.99m, TrendScore = 65, Category = "Clothes" },
-            new CategoryProductModel { ProductId = 11, Name = "Denim Shorts", Price = 29.99m, TrendScore = 70, Category = "Clothes" },
-            new CategoryProductModel { ProductId = 12, Name = "Denim Skirt", Price = 39.99m, TrendScore = 72, Category = "Clothes" },
-    
-            // Home Appliances category products
-            new CategoryProductModel { ProductId = 13, Name = "Microwave Oven", Price = 99.99m, TrendScore = 65, Category = "Home Appliances" },
-            new CategoryProductModel { ProductId = 14, Name = "Blender", Price = 29.99m, TrendScore = 60, Category = "Home Appliances" },
-            new CategoryProductModel { ProductId = 15, Name = "Coffee Maker", Price = 49.99m, TrendScore = 75, Category = "Home Appliances" },
-            new CategoryProductModel { ProductId = 16, Name = "Toaster", Price = 24.99m, TrendScore = 55, Category = "Home Appliances" },
-            new CategoryProductModel { ProductId = 17, Name = "Electric Kettle", Price = 19.99m, TrendScore = 50, Category = "Home Appliances" },
-            new CategoryProductModel { ProductId = 18, Name = "Food Processor", Price = 79.99m, TrendScore = 80, Category = "Home Appliances" }
-        };
-
-
-        public CategoryController(IWebHostEnvironment environment)
-        {
-
+            _context = context;
         }
-        public IActionResult CategoryProducts(string category, string sortOrder, decimal? minPrice, decimal? maxPrice)
+
+        public IActionResult CategoryProducts(string category, string sortOrder)
         {
             ViewBag.Category = category;
-            var filteredProducts = _products.Where(p => p.Category == category);
 
+            // Query the database to retrieve sites
+            var sitesQuery = _context.Site.AsQueryable();
 
-
-            var test = filteredProducts.Count();
-
-            // Apply price filters only if both minPrice and maxPrice are provided
-            if (minPrice.HasValue && maxPrice.HasValue)
+            if (!string.IsNullOrEmpty(category))
             {
-                filteredProducts = filteredProducts.Where(p => p.Price >= minPrice.Value && p.Price <= maxPrice.Value);
+                // Assuming your Site model has a Tags property where categories are stored
+                sitesQuery = sitesQuery.Where(site => EF.Functions.Like(site.Tags, $"%{category}%"));
             }
 
+            // Sort the sites based on the provided sortOrder
             switch (sortOrder)
             {
-                case "priceLowHigh":
-                    filteredProducts = filteredProducts.OrderBy(p => p.Price);
+                case "scoreLowHigh":
+                    sitesQuery = sitesQuery.OrderBy(site => site.TrendScore);
                     break;
-                case "priceHighLow":
-                    filteredProducts = filteredProducts.OrderByDescending(p => p.Price);
+                case "scoreHighLow":
+                    sitesQuery = sitesQuery.OrderByDescending(site => site.TrendScore);
                     break;
-                case "newest":
-                    filteredProducts = filteredProducts.OrderByDescending(p => p.DateAdded);
-                    break;
+                // Add more cases if you have other sorting options
                 default:
-                    // filteredProducts = filteredProducts.OrderByDescending(p => p.TrendScore);
+                    // You might want to have a default sorting, for instance by ID
+                    sitesQuery = sitesQuery.OrderBy(site => site.SiteId);
                     break;
             }
 
-            return View(filteredProducts.ToList());
-        }
+            // Execute the query and convert it to a list
+            var sites = sitesQuery.ToList();
 
+            return View(sites);
+        }
     }
 }

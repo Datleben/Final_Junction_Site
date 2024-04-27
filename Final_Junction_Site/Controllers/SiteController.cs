@@ -14,12 +14,13 @@ namespace Final_Junction_Site.Controllers
         {
             repository = repo;
         }
-        public ViewResult List()
+
+        public ViewResult Details(int SiteId = 1) =>
+			View(repository.Sites.FirstOrDefault(s => s.SiteId == SiteId));
+		public ViewResult List()
         {
             var sites = repository.Sites ?? Enumerable.Empty<Site>().ToList();
             return View(sites);
         }
-
     }
-
 }

@@ -10,7 +10,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews();
 
 //Add when Rating Interface and Repository are created
-builder.Services.AddTransient<IRatingRepository, RatingRepository>();
+builder.Services.AddTransient<IRatingRepository, EFRatingRepository>();
 builder.Services.AddTransient<ISiteRepository, SiteRepository>(); // pg 18, add for each table?
 //builder.Services.AddTransient<TestDBRepository>();
 
@@ -30,6 +30,9 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+// REMOVE THIS DEFAULT ROUTE (ONLY FOR TESTING)
+// remove default from sitecontroller details method parameter
 
 // Don't change default route
 app.MapControllerRoute(

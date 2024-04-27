@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Final_Junction_Site.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240418040816_Sites")]
-    partial class Sites
+    [Migration("20240427021748_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,6 +23,41 @@ namespace Final_Junction_Site.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("Final_Junction_Site.Models.Customer", b =>
+                {
+                    b.Property<int>("CustomerId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CustomerId"));
+
+                    b.Property<string>("CustomerAddress")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CustomerEmail")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CustomerName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CustomerPassword")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("SendEmailNotifications")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("SendTextNotifications")
+                        .HasColumnType("bit");
+
+                    b.HasKey("CustomerId");
+
+                    b.ToTable("Customer");
+                });
 
             modelBuilder.Entity("Final_Junction_Site.Models.Rating", b =>
                 {
@@ -62,10 +97,6 @@ namespace Final_Junction_Site.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("RatingId")
                         .HasColumnType("int");
 
@@ -91,6 +122,19 @@ namespace Final_Junction_Site.Migrations
                     b.HasKey("SiteId");
 
                     b.ToTable("Site");
+                });
+
+            modelBuilder.Entity("Final_Junction_Site.Models.TestDBClass", b =>
+                {
+                    b.Property<int>("TestDBClassId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TestDBClassId"));
+
+                    b.HasKey("TestDBClassId");
+
+                    b.ToTable("TestDBClass");
                 });
 #pragma warning restore 612, 618
         }

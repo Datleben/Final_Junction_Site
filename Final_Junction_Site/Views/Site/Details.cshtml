@@ -1,0 +1,33 @@
+﻿@model Site
+<title>@Model.SiteName</title>
+<nav class="navbar navbar-dark" style="background-color: #388e7f;">
+    <a class="navbar-brand text-white" href="@Model.URL">@Model.SiteName</a>
+</nav>
+
+<div>
+    <img src=@Model.ThumbnailURL alt="Thumbnail image">
+    <br />
+    Description: @Model.Description
+    <br />
+    Trend Score: @Model.TrendScore
+    <br />
+    Tags: @Model.Tags
+    <br />
+    <div class="text-center">
+        <a class="btn btn-primary" href="@Model.URL">Visit @Model.SiteName</a>
+    </div>
+</div>
+
+<div class ="text-center">
+    <a class="btn btn-outline-dark btn-block m-2"
+       asp-action="List"
+       asp-controller="Rating">
+       See customer reviews for @Model.SiteName
+    </a>
+
+    <a class="btn btn-outline-dark btn-block m-2"
+       asp-action="Create"
+       asp-controller="Rating">
+        Rate this site
+    </a>
+</div> 
