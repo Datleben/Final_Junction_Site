@@ -9,8 +9,8 @@ namespace Final_Junction_Site.Controllers
         public AccountController()
         {
             customer = new Customer {
-                Customer_Id = 1,Customer_Name = "firsname lastname", Customer_Email = "cusomteremail@gmail.com",
-                Customer_Password = "Password", Customer_Address = "homeAddress", SendEmailNotifications = false, SendTextNotifications = true
+                CustomerId = 1,CustomerName = "firsname lastname", CustomerEmail = "cusomteremail@gmail.com",
+                CustomerPassword = "Password", CustomerAddress = "homeAddress", SendEmailNotifications = false, SendTextNotifications = true
             };
         }
 

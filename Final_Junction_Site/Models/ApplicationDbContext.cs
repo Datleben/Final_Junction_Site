@@ -11,5 +11,6 @@ namespace Final_Junction_Site.Models
         public DbSet<TestDBClass> TestDBClass { get; set; } // remove when done testing, and add Sites (above line). Will need to add other tables too
         public DbSet<Site> Site { get; internal set; }
         public DbSet<Rating> Rating { get; set; }
+        public DbSet<Customer> Customer { get; internal set; }
     }
 }

@@ -5,13 +5,28 @@
 namespace Final_Junction_Site.Migrations
 {
     /// <inheritdoc />
-    public partial class Sites : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "TestDBClass");
+            migrationBuilder.CreateTable(
+                name: "Customer",
+                columns: table => new
+                {
+                    CustomerId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CustomerName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CustomerEmail = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CustomerPassword = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CustomerAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SendEmailNotifications = table.Column<bool>(type: "bit", nullable: false),
+                    SendTextNotifications = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Customer", x => x.CustomerId);
+                });
 
             migrationBuilder.CreateTable(
                 name: "Rating",
@@ -38,7 +53,6 @@ namespace Final_Junction_Site.Migrations
                     RatingId = table.Column<int>(type: "int", nullable: false),
                     SiteName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ThumbnailURL = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     URL = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TrendScore = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
@@ -48,30 +62,34 @@ namespace Final_Junction_Site.Migrations
                 {
                     table.PrimaryKey("PK_Site", x => x.SiteId);
                 });
-        }
-
-        /// <inheritdoc />
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.DropTable(
-                name: "Rating");
-
-            migrationBuilder.DropTable(
-                name: "Site");
 
             migrationBuilder.CreateTable(
                 name: "TestDBClass",
                 columns: table => new
                 {
                     TestDBClassId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    TestDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TestName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1")
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TestDBClass", x => x.TestDBClassId);
                 });
+        }
+
+        /// <inheritdoc />
+        protected override void Down(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropTable(
+                name: "Customer");
+
+            migrationBuilder.DropTable(
+                name: "Rating");
+
+            migrationBuilder.DropTable(
+                name: "Site");
+
+            migrationBuilder.DropTable(
+                name: "TestDBClass");
         }
     }
 }
