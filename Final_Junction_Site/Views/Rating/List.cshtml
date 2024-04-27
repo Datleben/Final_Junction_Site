@@ -1,0 +1,19 @@
+﻿@model RatingListViewModel
+@foreach (var r in Model.Ratings)
+{
+<div>
+	<h3>Reviewer:@r.CustomerId     Stars:@r.Stars</h3>
+	@r.ReviewText
+</div>
+}
+
+<div page-model="@Model.PagingInfo" page-action="List"></div>
+
+<div>
+    <a class="btn btn-outline-dark btn-block m-2"
+       asp-action="Create"
+       asp-controller="Rating">
+        Rate this site
+    </a>
+</div>
+

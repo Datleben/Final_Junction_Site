@@ -3,5 +3,7 @@
     public interface IRatingRepository
     {
         IEnumerable<Rating> Ratings { get; }
-    }
+
+		void SaveRating(Rating rating);
+	}
 }
