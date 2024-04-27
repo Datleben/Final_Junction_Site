@@ -9,7 +9,7 @@ namespace Final_Junction_Site.Models
 
         //public DbSet<Site> Sites { get; set; }
         public DbSet<TestDBClass> TestDBClass { get; set; } // remove when done testing, and add Sites (above line). Will need to add other tables too
-        public IEnumerable<Site> Site { get; internal set; }
+        public DbSet<Site> Site { get; internal set; }
         public IEnumerable<Rating> Rating { get; internal set; }
     }
 }
