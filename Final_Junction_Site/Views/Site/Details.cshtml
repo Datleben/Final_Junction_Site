@@ -21,13 +21,15 @@
 <div class ="text-center">
     <a class="btn btn-outline-dark btn-block m-2"
        asp-action="List"
-       asp-controller="Rating">
+       asp-controller="Rating"
+       asp-route-siteId = "@Model.SiteId">
        See customer reviews for @Model.SiteName
     </a>
 
     <a class="btn btn-outline-dark btn-block m-2"
        asp-action="Create"
-       asp-controller="Rating">
+       asp-controller="Rating"
+       asp-route-siteId=@Model.SiteId>
         Rate this site
     </a>
 </div> 

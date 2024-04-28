@@ -16,7 +16,12 @@ namespace Final_Junction_Site.Controllers
 
         public ViewResult Details()
         {
-            return View();
+            return View(customer);
+        }
+
+        public ViewResult EditPrefs()
+        {
+            return View("Details",customer);
         }
     }
 }

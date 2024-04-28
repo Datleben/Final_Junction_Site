@@ -28,7 +28,7 @@ namespace Final_Junction_Site.Infrastructure
             {
                 TagBuilder tag = new TagBuilder("a");
                 tag.Attributes["href"] = urlHelper.Action(PageAction,
-                new { page = i });
+                new { siteId = PageModel.CurrentSiteId, page = i });
                 tag.InnerHtml.Append(i.ToString());
                 result.InnerHtml.AppendHtml(tag);
             }

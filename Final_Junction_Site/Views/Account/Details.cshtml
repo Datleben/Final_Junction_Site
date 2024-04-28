@@ -1,17 +1,20 @@
 ﻿@model Customer
 <title>Account Details</title>
 <div>
-    <h3>@Model.CustomerId</h3>
+    <h3>Name: @Model.CustomerName</h3>
     <br />
-    <h3>@Model.CustomerName</h3>
+    <h3>Email: @Model.CustomerEmail</h3>
     <br />
-    <h3>@Model.CustomerEmail</h3>
-    <br />
-    <h3>@Model.CustomerPassword</h3>
-    <br />
-    <h3>@Model.CustomerAddress</h3>
-    <br />
-    <h3>@Model.SendEmailNotifications</h3>
-    <br />
-    <h3>@Model.SendTextNotifications</h3>
+    <h3>Address: @Model.CustomerAddress</h3>
+
+<form method="post" asp-action="EditPrefs">
+    <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="textSwitch" >
+            <label class="form-check-label" for="textSwitch">Text Notifications</label>
+    </div>
+    <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="emailSwitch" >
+        <label class="form-check-label" for="emailSwitch">Email Notifications</label>
+    </div>
+</form>
 </div>
