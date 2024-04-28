@@ -1,12 +1,13 @@
 ﻿@model Site
 <title>@Model.SiteName</title>
-<nav class="navbar navbar-dark" style="background-color: #388e7f;">
+@* <nav class="navbar navbar-dark" style="background-color: #388e7f;">
     <a class="navbar-brand text-white" href="@Model.URL">@Model.SiteName</a>
-</nav>
+</nav> *@
 
 <div>
-    <img src=@Model.ThumbnailURL alt="Thumbnail image">
+    <img src=@Model.ThumbnailURL alt="Thumbnail image" style="height: 60vh; width: 100%">
     <br />
+    <h1 style="text-align: center">@Model.SiteName</h1>
     Description: @Model.Description
     <br />
     Trend Score: @Model.TrendScore
