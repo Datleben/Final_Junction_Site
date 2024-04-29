@@ -1,10 +1,11 @@
 ﻿@model RatingListViewModel
+
 @foreach (var r in Model.Ratings)
 {
     <div class="card m-3 rounded">
         <div class="card-block m-2">
             <h3>
-                <strong style ="margin-left:10px">Reviewer:@r.CustomerId </strong>
+                <strong style="margin-left:10px">Reviewer:@Model.Customers.FirstOrDefault(c => c.CustomerId == r.CustomerId).CustomerName </strong>
                 <div style="float:right;margin-right:10px" >
                     <strong>Stars: @r.Stars</strong>
                 </div>
@@ -15,7 +16,10 @@
     </div>
 }
 
-<div page-model="@Model.PagingInfo" page-action="List"></div>
+<div page-model="@Model.PagingInfo" page-action="List" page-classes-enabled="true"
+     page-class="btn" page-class-normal="btn-default"
+     page-class-selected="btn-primary" class="btn-group float-right">
+</div>
 
 <div>
     <a class="btn btn-outline-dark btn-block m-2"

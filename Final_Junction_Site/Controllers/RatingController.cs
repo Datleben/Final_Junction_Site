@@ -10,11 +10,13 @@ namespace Final_Junction_Site.Controllers
 {
     public class RatingController : Controller
     {
-        private IRatingRepository repository;
-        public int PageSize = 4;
-        public RatingController(IRatingRepository repo)
+        private IRatingRepository repositoryR;
+		private ICustomerRepository repositoryC;
+		public int PageSize = 4;
+        public RatingController(IRatingRepository repoR, ICustomerRepository repoC)
         {
-            repository = repo;
+            repositoryR = repoR;
+            repositoryC = repoC;
         }
 
         public ViewResult List(int siteId, int page = 1)
@@ -22,15 +24,16 @@ namespace Final_Junction_Site.Controllers
             return View(
             new RatingListViewModel
             {
-                Ratings = repository.Ratings
+                Ratings = repositoryR.Ratings
                     .Where(r => r.SiteId == siteId).OrderBy(r => r.RatingId).Skip((page - 1) * PageSize).Take(PageSize),
                 PagingInfo = new PagingInfo
                 {
                     CurrentPage = page,
                     CurrentSiteId = siteId,
                     ItemsPerPage = PageSize,
-                    TotalItems = repository.Ratings.Where(r => r.SiteId == siteId).Count()
-                }
+                    TotalItems = repositoryR.Ratings.Where(r => r.SiteId == siteId).Count()
+                },
+                Customers = repositoryC.Customers
             });
         }
 
@@ -46,7 +49,7 @@ namespace Final_Junction_Site.Controllers
         {
             if (ModelState.IsValid)
             {
-                repository.SaveRating(rating);
+				repositoryR.SaveRating(rating);
                 return RedirectToAction("List",new { siteId = routingSiteId });
             }
             else

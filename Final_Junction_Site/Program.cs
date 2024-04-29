@@ -11,6 +11,7 @@ builder.Services.AddControllersWithViews();
 
 //Add when Rating Interface and Repository are created
 builder.Services.AddTransient<IRatingRepository, EFRatingRepository>();
+builder.Services.AddTransient<ICustomerRepository, FakeCustomerRepository>();
 builder.Services.AddTransient<ISiteRepository, SiteRepository>(); // pg 18, add for each table?
 builder.Services.AddTransient<IUserService, UserService>();
 //builder.Services.AddTransient<TestDBRepository>();
