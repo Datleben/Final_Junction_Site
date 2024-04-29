@@ -1,20 +1,37 @@
-﻿using Final_Junction_Site.Models;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Final_Junction_Site.Models;
 
 namespace Final_Junction_Site.Controllers
 {
     public class SiteListController : Controller
     {
-        private static List<SiteListModel> _sites = new List<SiteListModel>
-        {
-            // Sample data
-            new SiteListModel { SiteId = 1, Name = "Example Site 1", Location = "New York", AddedDate = DateTime.Now.AddDays(-10) },
-            new SiteListModel { SiteId = 2, Name = "Example Site 2", Location = "San Francisco", AddedDate = DateTime.Now.AddDays(-5) },
-        };
+        private readonly ApplicationDbContext _context;
 
-        public IActionResult ListSites()
+        public SiteListController(ApplicationDbContext context)
         {
-            return View(_sites.OrderByDescending(s => s.AddedDate).ToList());
+            _context = context;
+        }
+
+        // Added parameters for search and filter
+        public async Task<IActionResult> ListSites(string searchTerm = "", string locationFilter = "")
+        {
+            var sites = from s in _context.Site
+                        select s;
+
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                sites = sites.Where(s => s.SiteName.Contains(searchTerm) || s.Description.Contains(searchTerm));
+            }
+
+            if (!string.IsNullOrEmpty(locationFilter))
+            {
+                sites = sites.Where(s => s.Tags.Contains(locationFilter));
+            }
+
+            return View(await sites.OrderByDescending(s => s.TrendScore).ToListAsync());
         }
     }
 }
