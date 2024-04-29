@@ -3,6 +3,9 @@
 @* <nav class="navbar navbar-dark" style="background-color: #388e7f;">
     <a class="navbar-brand text-white" href="@Model.URL">@Model.SiteName</a>
 </nav> *@
+@{
+    ViewData["Title"] = Model.SiteName;
+}
 
 <div>
     <img src=@Model.ThumbnailURL alt="Thumbnail image" style="height: 60vh; width: 100%">

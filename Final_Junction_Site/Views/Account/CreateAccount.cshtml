@@ -1,0 +1,52 @@
+﻿@model Customer
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Account</title>
+</head>
+<body>
+    <h2>Create Account</h2>
+
+    @using (Html.BeginForm("Register", "Account", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <div>
+            @Html.LabelFor(m => m.CustomerName)
+            @Html.TextBoxFor(m => m.CustomerName, new { required = "required" })
+            @Html.ValidationMessageFor(m => m.CustomerName)
+        </div>
+
+        <div>
+            @Html.LabelFor(m => m.CustomerEmail)
+            @Html.TextBoxFor(m => m.CustomerEmail, new { type = "email", required = "required" })
+            @Html.ValidationMessageFor(m => m.CustomerEmail)
+        </div>
+
+        <div>
+            @Html.LabelFor(m => m.CustomerPassword)
+            @Html.PasswordFor(m => m.CustomerPassword, new { required = "required" })
+            @Html.ValidationMessageFor(m => m.CustomerPassword)
+        </div>
+
+        <div>
+            @Html.LabelFor(m => m.CustomerAddress)
+            @Html.TextAreaFor(m => m.CustomerAddress, new { required = "required" })
+            @Html.ValidationMessageFor(m => m.CustomerAddress)
+        </div>
+
+        <button type="submit">Create Account</button>
+
+        @Html.ValidationSummary()
+    }
+
+    @if (ViewBag.ErrorMessage != null)
+    {
+        <p class="error">@ViewBag.ErrorMessage</p>
+    }
+
+    <p><a asp-controller="SiteList" asp-action="ListSites">View your favorite Shops !</a></p>
+
+</body>
+</html>
