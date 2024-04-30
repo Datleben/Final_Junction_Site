@@ -7,4 +7,5 @@ public interface IUserService
     Task<Customer> AuthenticateUser(string username, string password);
     Task SendPasswordResetEmail(string email);
     Task ResetPassword(string token, string newPassword);
+    Task<Customer> GetUserByName(string name);
 }

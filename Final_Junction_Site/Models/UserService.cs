@@ -18,15 +18,16 @@ public class UserService : IUserService
     //    await _context.SaveChangesAsync();
     //}
 
-    public async Task<Customer> GetUserByUsernameAndPassword(string username, string password)
-    {
-        return await _context.Customer.FirstOrDefaultAsync(u => u.CustomerName == username && u.CustomerPassword == password);
-        // return await _context.Customers.FirstOrDefaultAsync(u => u.CustomerName == username && u.CustomerPassword == password);
-    }
+    //public async Task<Customer> GetUserByUsernameAndPassword(string username, string password)
+    //{
+    //    return await _context.Customer.FirstOrDefaultAsync(u => u.CustomerName == username && u.CustomerPassword == password);
+    //    // return await _context.Customers.FirstOrDefaultAsync(u => u.CustomerName == username && u.CustomerPassword == password);
+    //}
 
-    public async Task<Customer> GetUserByEmail(string email)
+    public async Task<Customer> GetUserByName(string name)
     {
-        return await _context.Customer.FirstOrDefaultAsync(u => u.CustomerEmail == email);
+        return await _context.Customer.FirstOrDefaultAsync(u => u.CustomerName == name);
+        //OR EMAIL BELOW
         //return await _context.Customers.FirstOrDefaultAsync(u => u.CustomerEmail == email);
     }
 
@@ -36,9 +37,15 @@ public class UserService : IUserService
         throw new NotImplementedException();
     }
 
-    Task<Customer> IUserService.AuthenticateUser(string username, string password)
+   async Task<Customer?> IUserService.AuthenticateUser(string email, string password)
     {
-        throw new NotImplementedException();
+        var user = await _context.Customer.FirstOrDefaultAsync(u => u.CustomerEmail == email && u.CustomerPassword == password);
+
+        if (user == null)
+        {
+            return null;
+        }
+        return user;
     }
 
     Task IUserService.SendPasswordResetEmail(string email)
