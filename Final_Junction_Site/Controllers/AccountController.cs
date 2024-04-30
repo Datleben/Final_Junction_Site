@@ -93,8 +93,6 @@ namespace Final_Junction_Site.Controllers
             return View("Details", customer); // Pass a single Customer object 
         }
 
-
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(Login userInfo)
@@ -121,7 +119,7 @@ namespace Final_Junction_Site.Controllers
 
                     // Redirect to the desired page after successful login
                     TempData["loginMessage"] = "You have successfully logged in";
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Details", "Account");
                 }
                 else
                 {
