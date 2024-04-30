@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Final_Junction_Site.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,7 +14,11 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddTransient<IRatingRepository, EFRatingRepository>();
 builder.Services.AddTransient<ISiteRepository, SiteRepository>(); // pg 18, add for each table?
 builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddScoped<IUserService, UserService>();
 //builder.Services.AddTransient<TestDBRepository>();
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie();
 
 var app = builder.Build();
 
@@ -31,6 +36,8 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+app.UseAuthentication();
+
 
 // REMOVE THIS DEFAULT ROUTE (ONLY FOR TESTING)
 // remove default from sitecontroller details method parameter

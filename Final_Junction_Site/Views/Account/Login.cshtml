@@ -1,0 +1,38 @@
+﻿@model Login
+<h2>Login</h2>
+
+@using (Html.BeginForm("Login", "Account", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div>
+        @if (TempData["loginMessage"] != null)
+        {
+            <div class="alert alert-success">@TempData["loginMessage"]</div>
+        }
+    </div>
+    <div>
+        @if (TempData["loginErrorMessage"] != null)
+        {
+            <div class="alert alert-danger">@TempData["loginErrorMessage"]</div>
+        }
+    </div>
+
+    <div>
+        @Html.LabelFor(m => m.Email)
+        @Html.TextBoxFor(m => m.Email)
+        @Html.ValidationMessageFor(m => m.Email)
+    </div>
+
+    <div>
+        @Html.LabelFor(m => m.Password)
+        @Html.PasswordFor(m => m.Password)
+        @Html.ValidationMessageFor(m => m.Password)
+    </div>
+
+    <button type="submit">Login</button>
+
+    @if (ViewBag.ErrorMessage != null)
+    {
+        <p class="error">@ViewBag.ErrorMessage</p>
+    }
+}
