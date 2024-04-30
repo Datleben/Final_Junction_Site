@@ -11,14 +11,6 @@ namespace Final_Junction_Site.Controllers
     public class AccountController : Controller
     {
         private Customer customer;
-        //public AccountController()
-        //{
-        //    customer = new Customer {
-        //        CustomerId = 1,CustomerName = "firsname lastname", CustomerEmail = "cusomteremail@gmail.com",
-        //        CustomerPassword = "Password", CustomerAddress = "homeAddress", SendEmailNotifications = false, SendTextNotifications = true
-        //    };
-        //}
-        // THIS SECTION IS COMMENTED SO BELOW ACCOUNT CONTROLLER CLASS CONSTRUCTOR TAKES PRIMARY
 
         private readonly IUserService _userService;
 
@@ -35,7 +27,7 @@ namespace Final_Junction_Site.Controllers
         // GET: /Account/Register
         public IActionResult Register()
         {
-            return View("CreateAccount");
+            return View();
         }
 
         // POST: /Account/Register
@@ -43,21 +35,32 @@ namespace Final_Junction_Site.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(Customer customer)
         {
-            if (ModelState.IsValid)
-            {
-                try
+                if (ModelState.IsValid)
                 {
-                    await _userService.RegisterUser(customer);
-                    //Uncomment above when _userService error Interface issue is resolved
-                    return RedirectToAction("Login", "Account");
+                    var newCustomer = new Customer
+                    {
+                        CustomerName = customer.CustomerName,
+                        CustomerEmail = customer.CustomerEmail,
+                        CustomerPassword = customer.CustomerPassword,
+                        CustomerAddress = customer.CustomerAddress
+                    //ADD THE PROMOTIONAL PREFERENCE MESSAGE ALONG WITH THE NEW CUSTOMER? 
+                    };
+
+                    var result = await _userService.RegisterUser(newCustomer);
+
+                    if (result)
+                    {
+                        return RedirectToAction("Login", "Account");
+                    }
+                    else
+                    {
+                        // Handle registration failure
+                        ModelState.AddModelError("", "An error occurred while registering the user.");
+                    }
                 }
-                catch (Exception ex)
-                {
-                    ModelState.AddModelError("", $"Registration failed: {ex.Message}");
-                }
+
+                return View(customer);
             }
-            return View(customer);
-        }
 
         // GET: /Account/Login
         public IActionResult Login()

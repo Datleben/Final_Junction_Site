@@ -13,6 +13,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddTransient<IRatingRepository, EFRatingRepository>();
 builder.Services.AddTransient<ISiteRepository, SiteRepository>(); // pg 18, add for each table?
 builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddScoped<IUserService, UserService>();
 //builder.Services.AddTransient<TestDBRepository>();
 
 var app = builder.Build();
