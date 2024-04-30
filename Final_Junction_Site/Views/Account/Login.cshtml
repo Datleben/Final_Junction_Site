@@ -5,9 +5,9 @@
 {
     @Html.AntiForgeryToken()
     <div>
-        @if (TempData["loginMessage"] != null)
+        @if (TempData["loginActionMessages"] != null)
         {
-            <div class="alert alert-success">@TempData["loginMessage"]</div>
+            <div class="alert alert-success">@TempData["loginActionMessages"]</div>
         }
     </div>
     <div>
