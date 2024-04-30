@@ -8,11 +8,8 @@
 	<!--saves siteId to Rating object-->
 	<input type="hidden" asp-for="SiteId" value=@ViewBag.SiteId />
 
-	<div class="form-group">
-		<label asp-for="CustomerId"></label>
-		<div><span asp-validation-for="CustomerId" class="text-danger"></span></div>
-		<input asp-for="CustomerId" class="form-control" />
-	</div>
+
+	<input type="hidden" asp-for="CustomerId" value=@ViewBag.CustomerId />
 
 	<div class="form-group">
 		<label asp-for="Stars"></label>

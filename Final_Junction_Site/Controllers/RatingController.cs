@@ -5,6 +5,9 @@ using System.Threading.Tasks;
 using Final_Junction_Site.Models;
 using Microsoft.AspNetCore.Mvc;
 using Final_Junction_Site.Models.ViewModels;
+using Microsoft.AspNetCore.Identity;
+using SportsStore.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Final_Junction_Site.Controllers
 {
@@ -12,11 +15,13 @@ namespace Final_Junction_Site.Controllers
     {
         private IRatingRepository repositoryR;
 		private ICustomerRepository repositoryC;
-		public int PageSize = 4;
-        public RatingController(IRatingRepository repoR, ICustomerRepository repoC)
+        private UserManager<AppUser> userManager;
+        public int PageSize = 4;
+        public RatingController(IRatingRepository repoR, ICustomerRepository repoC, UserManager<AppUser> userMgr)
         {
             repositoryR = repoR;
             repositoryC = repoC;
+            userManager = userMgr;
         }
 
         public ViewResult List(int siteId, int page = 1)
@@ -38,14 +43,27 @@ namespace Final_Junction_Site.Controllers
         }
 
         //public ViewResult Edit(int RatingId) => View(repository.Ratings.FirstOrDefault(r => r.RatingId == RatingId));
-        public ViewResult Create(int siteId)
+        [Authorize]
+        public async Task<IActionResult> Create(int siteId)
         {
+            AppUser user = await userManager.GetUserAsync(User);
+            int customerId = user.customerId;
+            Rating customerSiteReview = repositoryR.Ratings.FirstOrDefault(r => r.CustomerId == customerId && r.SiteId == siteId );
+
+            ViewBag.CustomerId = customerId;
             ViewBag.SiteId = siteId;
-            return View("Edit", new Rating());
+            if (customerSiteReview is not null)
+            {
+                return View("Edit", customerSiteReview);
+            }
+            else {
+                return View("Edit", new Rating());
+            }
         }
 
         [HttpPost]
-        public IActionResult Edit(Rating rating, int routingSiteId)
+        [Authorize]
+        public async Task<IActionResult> Edit(Rating rating, int routingSiteId)
         {
             if (ModelState.IsValid)
             {
