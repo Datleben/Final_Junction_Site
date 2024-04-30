@@ -5,6 +5,7 @@ using System;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Final_Junction_Site.Controllers
 {
@@ -66,7 +67,60 @@ namespace Final_Junction_Site.Controllers
         public IActionResult Login()
         {
             return View();
+            string user  = User.Identity.Name;
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(Login userInfo)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userService.AuthenticateUser(userInfo.Email, userInfo.Password);
+
+                if (user != null)
+                {
+                    var claim = new Claim(ClaimTypes.Name, user.CustomerName);
+                    var claimsIdentity = new ClaimsIdentity(new[] { claim }, CookieAuthenticationDefaults.AuthenticationScheme);
+
+                    // Create an authentication properties object
+                    var authProperties = new AuthenticationProperties
+                    {
+                        AllowRefresh = true,
+                        IsPersistent = true,
+                        ExpiresUtc = DateTimeOffset.UtcNow.AddDays(7)
+                    };
+
+                    // Sign in the user
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
+
+                    // Redirect to the desired page after successful login
+                    TempData["loginMessage"] = "You have successfully logged in";
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    TempData["loginErrorMessage"] = "Invalid Email or Password";
+                    ModelState.AddModelError("", "Invalid username or password.");
+                }
+            }
+
+            return View(userInfo);
+        }
+
+        //public async Task OnGetAsync(string returnUrl = null)
+        //{
+        //    if (!string.IsNullOrEmpty(ErrorMessage))
+        //    {
+        //        ModelState.AddModelError(string.Empty, ErrorMessage);
+        //    }
+
+        //    // Clear the existing external cookie
+        //    await HttpContext.SignOutAsync(
+        //        CookieAuthenticationDefaults.AuthenticationScheme);
+
+        //    ReturnUrl = returnUrl;
+        //}
     }
 }
 
