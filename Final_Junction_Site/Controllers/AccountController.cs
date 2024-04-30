@@ -78,12 +78,14 @@ namespace Final_Junction_Site.Controllers
         {
             string userName = User.Identity.Name;
 
+            //DAVID: THE SETTING OF DEFAULT USERNAME SHOULDN'T BE NEEDED ANYMORE
+
             /// ONLY FOR TESTING PURPOSES DELETE
-            if (string.IsNullOrEmpty(userName))
-            {
-                // Set userName to the default customer's name or ID
-                userName = "Matthew"; // Assuming "Matthew" is no 1 // 
-            }
+            //if (string.IsNullOrEmpty(userName))
+            //{
+            //    // Set userName to the default customer's name or ID
+            //    userName = "Matthew"; // Assuming "Matthew" is no 1 // 
+            //}
 
             var customer = await _userService.GetUserByName(userName);
             if (customer == null)
@@ -118,7 +120,7 @@ namespace Final_Junction_Site.Controllers
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
 
                     // Redirect to the desired page after successful login
-                    TempData["loginMessage"] = "You have successfully logged in";
+                    TempData["loginActionMessages"] = "You have successfully logged in";
                     return RedirectToAction("Details", "Account");
                 }
                 else
@@ -130,18 +132,18 @@ namespace Final_Junction_Site.Controllers
 
             return View(userInfo);
         }
+        public async Task<IActionResult> Logout()
+        {
+            // Clear the session or authentication cookie
+            if (User.Identity.IsAuthenticated)
+            {
 
-        //public async Task OnGetAsync(string returnUrl = null)
-        //{
-        //    if (!string.IsNullOrEmpty(ErrorMessage))
-        //    {
-        //        ModelState.AddModelError(string.Empty, ErrorMessage);
-        //    }
-        //    // Clear the existing external cookie
-        //    await HttpContext.SignOutAsync(
-        //        CookieAuthenticationDefaults.AuthenticationScheme);
-        //    ReturnUrl = returnUrl;
-        //}
+                // Or, sign out the user from the authentication cookie
+                await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            }
+            TempData["loginActionMessages"] = "You have successfully logged out";
+            return RedirectToAction("Index", "Home");
+        }
     }
 }
 

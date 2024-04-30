@@ -12,12 +12,6 @@ public class UserService : IUserService
         _context = context;
     }
 
-    //public async Task AddUser(Customer customer)
-    //{
-    //    _context.Customer.Add(customer);
-    //    await _context.SaveChangesAsync();
-    //}
-
     //public async Task<Customer> GetUserByUsernameAndPassword(string username, string password)
     //{
     //    return await _context.Customer.FirstOrDefaultAsync(u => u.CustomerName == username && u.CustomerPassword == password);
