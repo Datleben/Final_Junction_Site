@@ -1,19 +1,38 @@
 ﻿@model RatingListViewModel
+
 @foreach (var r in Model.Ratings)
 {
-<div>
-	<h3>Reviewer:@r.CustomerId     Stars:@r.Stars</h3>
-	@r.ReviewText
-</div>
+    <div class="card m-3 rounded">
+        <div class="card-block m-2">
+            <h3>
+                <strong style="margin-left:10px">Reviewer:@Model.Customers.FirstOrDefault(c => c.CustomerId == r.CustomerId).CustomerName </strong>
+                <div style="float:right;margin-right:10px" >
+                    <strong>Stars: @r.Stars</strong>
+                </div>
+            </h3>
+
+            <span class="lead" style="margin-left:10px">@r.ReviewText</span>
+        </div>
+    </div>
 }
 
-<div page-model="@Model.PagingInfo" page-action="List"></div>
+<div page-model="@Model.PagingInfo" page-action="List" page-classes-enabled="true"
+     page-class="btn" page-class-normal="btn-default"
+     page-class-selected="btn-primary" class="btn-group float-right">
+</div>
 
 <div>
     <a class="btn btn-outline-dark btn-block m-2"
+       asp-action="Details"
+       asp-controller="Site"
+       asp-route-SiteId="@Model.PagingInfo.CurrentSiteId">
+        Return to Site Details
+    </a>
+
+    <a class="btn btn-outline-dark btn-block m-2"
        asp-action="Create"
-       asp-controller="Rating">
+       asp-controller="Rating"
+       asp-route-SiteId="@Model.PagingInfo.CurrentSiteId">
         Rate this site
     </a>
 </div>
-

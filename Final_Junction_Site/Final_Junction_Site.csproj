@@ -6,22 +6,12 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
-  <ItemGroup>
-    <None Include="wwwroot\Images\book.jpg" />
-    <None Include="wwwroot\Images\default-product.jpg" />
-    <None Include="wwwroot\Images\flame.png" />
-    <None Include="wwwroot\Images\flowers.png" />
-    <None Include="wwwroot\Images\Junction_logo_fixed_ver_Green.png" />
-    <None Include="wwwroot\Images\makeup.jpg" />
-    <None Include="wwwroot\Images\mint_mountains.jpg" />
-    <None Include="wwwroot\Images\note.jpg" />
-    <None Include="wwwroot\Images\Searching_glass.png" />
-    <None Include="wwwroot\Images\shirt.png" />
-    <None Include="wwwroot\Images\sofa.png" />
-    <None Include="wwwroot\Images\toys.jpg" />
-  </ItemGroup>
+	<ItemGroup>
+		<Folder Include="wwwroot\" />
+	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.2.0" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.4" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.4" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.4" />
@@ -29,7 +19,12 @@
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
 		</PackageReference>
+		
 		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="7.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="7.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.15" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore"
+Version="6.0.15" />
 	</ItemGroup>
 
 	<ItemGroup>
