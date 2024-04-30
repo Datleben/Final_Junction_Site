@@ -36,6 +36,13 @@
             @Html.ValidationMessageFor(m => m.CustomerAddress)
         </div>
 
+@*        <div>
+             
+            MAKE USER HAVE THE OPTION TO SELECT AN OPTION FOR PROMOTION MESSAGES; SET TO FALSE AUTOMATCALLY
+            @Html.DropDownListFor(m=>m.SendTextNotifications)
+            @Html.DropDownListFor(m=>m.SendEmailNotifications)
+        </div>*@
+
         <button type="submit">Create Account</button>
 
         @Html.ValidationSummary()
