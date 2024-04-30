@@ -70,11 +70,17 @@ namespace Final_Junction_Site.Controllers
 
         // GET: /Account/Details
         [HttpGet("Account/Details")]
-        public IActionResult AccountDetails()
+        public async Task<IActionResult> AccountDetails()
         {
-            var customers = _context.Customer.ToList(); // Fetches all customer records from the database
-            return View("Details", customers); 
+            string userName = User.Identity.Name;
+            var customer = await _userService.GetUserByName(userName);
+            if (customer == null)
+            {
+                return View("Error"); // Consider a more suitable response here.
+            }
+            return View("Details", customer); // Pass a single Customer object instead of a list.
         }
+
 
     }
 }

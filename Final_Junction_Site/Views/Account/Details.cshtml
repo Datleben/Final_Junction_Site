@@ -1,4 +1,4 @@
-﻿@model List<Final_Junction_Site.Models.Customer>
+﻿@model Final_Junction_Site.Models.Customer
 
 @{
     ViewData["Title"] = "Account Details";
@@ -9,30 +9,23 @@
 <h1 class="mt-4 mb-4 text-center">Account Details</h1>
 
 <div class="container">
-    @if (!Model.Any())
+    @if (Model == null)
     {
-        <p class="alert alert-warning">No accounts found.</p>
+        <p class="alert alert-warning">No account found.</p>
     }
     else
     {
-        <div class="row row-cols-1 row-cols-md-3 g-4">
-            @foreach (var customer in Model)
-            {
-                <div class="col">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h5 class="card-title">@customer.CustomerName</h5>
-                            <p class="card-text">Email: @customer.CustomerEmail</p>
-                            <p class="card-text">Address: @customer.CustomerAddress</p>
-                            <p class="card-text">Email Notifications: @(customer.SendEmailNotifications ? "Yes" : "No")</p>
-                            <p class="card-text">Text Notifications: @(customer.SendTextNotifications ? "Yes" : "No")</p>
-                        </div>
-                        <div class="card-footer">
-                            <a asp-action="Edit" asp-controller="Customer" asp-route-CustomerId="@customer.CustomerId" class="btn btn-primary">Edit Details</a>
-                        </div>
-                    </div>
-                </div>
-            }
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">@Model.CustomerName</h5>
+                <p class="card-text">Email: @Model.CustomerEmail</p>
+                <p class="card-text">Address: @Model.CustomerAddress</p>
+                <p class="card-text">Email Notifications: @(Model.SendEmailNotifications ? "Yes" : "No")</p>
+                <p class="card-text">Text Notifications: @(Model.SendTextNotifications ? "Yes" : "No")</p>
+            </div>
+            <div class="card-footer">
+                <a asp-action="Edit" asp-controller="Customer" asp-route-CustomerId="@Model.CustomerId" class="btn btn-primary">Edit Details</a>
+            </div>
         </div>
     }
 </div>
