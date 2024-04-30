@@ -85,8 +85,8 @@ namespace Final_Junction_Site.Controllers
             return View("Details", customer); // Pass a single Customer object instead of a list.
         }
 
-            string user  = User.Identity.Name;
-        }
+        //    string user  = User.Identity.Name;
+        //}
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -114,7 +114,7 @@ namespace Final_Junction_Site.Controllers
 
                     // Redirect to the desired page after successful login
                     TempData["loginMessage"] = "You have successfully logged in";
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Details", "Account");
                 }
                 else
                 {
