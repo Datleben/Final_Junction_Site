@@ -39,32 +39,32 @@ namespace Final_Junction_Site.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(Customer customer)
         {
-                if (ModelState.IsValid)
+            if (ModelState.IsValid)
+            {
+                var newCustomer = new Customer
                 {
-                    var newCustomer = new Customer
-                    {
-                        CustomerName = customer.CustomerName,
-                        CustomerEmail = customer.CustomerEmail,
-                        CustomerPassword = customer.CustomerPassword,
-                        CustomerAddress = customer.CustomerAddress
+                    CustomerName = customer.CustomerName,
+                    CustomerEmail = customer.CustomerEmail,
+                    CustomerPassword = customer.CustomerPassword,
+                    CustomerAddress = customer.CustomerAddress
                     //ADD THE PROMOTIONAL PREFERENCE MESSAGE ALONG WITH THE NEW CUSTOMER? 
-                    };
+                };
 
-                    var result = await _userService.RegisterUser(newCustomer);
+                var result = await _userService.RegisterUser(newCustomer);
 
-                    if (result)
-                    {
-                        return RedirectToAction("Login", "Account");
-                    }
-                    else
-                    {
-                        // Handle registration failure
-                        ModelState.AddModelError("", "An error occurred while registering the user.");
-                    }
+                if (result)
+                {
+                    return RedirectToAction("Login", "Account");
                 }
-
-                return View(customer);
+                else
+                {
+                    // Handle registration failure
+                    ModelState.AddModelError("", "An error occurred while registering the user.");
+                }
             }
+
+            return View(customer);
+        }
 
         // GET: /Account/Login
         public IActionResult Login()
@@ -77,16 +77,21 @@ namespace Final_Junction_Site.Controllers
         public async Task<IActionResult> AccountDetails()
         {
             string userName = User.Identity.Name;
+
+            /// ONLY FOR TESTING PURPOSES DELETE
+            if (string.IsNullOrEmpty(userName))
+            {
+                // Set userName to the default customer's name or ID
+                userName = "Matthew"; // Assuming "Matthew" is no 1 // 
+            }
+
             var customer = await _userService.GetUserByName(userName);
             if (customer == null)
             {
-                return View("Error"); // Consider a more suitable response here.
+                return View("Error");
             }
-            return View("Details", customer); // Pass a single Customer object instead of a list.
+            return View("Details", customer); // Pass a single Customer object 
         }
-
-        //    string user  = User.Identity.Name;
-        //}
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -132,11 +137,9 @@ namespace Final_Junction_Site.Controllers
         //    {
         //        ModelState.AddModelError(string.Empty, ErrorMessage);
         //    }
-
         //    // Clear the existing external cookie
         //    await HttpContext.SignOutAsync(
         //        CookieAuthenticationDefaults.AuthenticationScheme);
-
         //    ReturnUrl = returnUrl;
         //}
     }
