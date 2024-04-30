@@ -47,7 +47,7 @@ namespace Final_Junction_Site.Controllers
                     CustomerEmail = customer.CustomerEmail,
                     CustomerPassword = customer.CustomerPassword,
                     CustomerAddress = customer.CustomerAddress
-                //ADD THE PROMOTIONAL PREFERENCE MESSAGE ALONG WITH THE NEW CUSTOMER? 
+                    //ADD THE PROMOTIONAL PREFERENCE MESSAGE ALONG WITH THE NEW CUSTOMER? 
                 };
 
                 var result = await _userService.RegisterUser(newCustomer);
@@ -77,16 +77,23 @@ namespace Final_Junction_Site.Controllers
         public async Task<IActionResult> AccountDetails()
         {
             string userName = User.Identity.Name;
+
+            /// ONLY FOR TESTING PURPOSES DELETE
+            if (string.IsNullOrEmpty(userName))
+            {
+                // Set userName to the default customer's name or ID
+                userName = "Matthew"; // Assuming "Matthew" is no 1 // 
+            }
+
             var customer = await _userService.GetUserByName(userName);
             if (customer == null)
             {
-                return View("Error"); 
+                return View("Error");
             }
             return View("Details", customer); // Pass a single Customer object 
         }
 
-            string user  = User.Identity.Name;
-        }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -132,11 +139,9 @@ namespace Final_Junction_Site.Controllers
         //    {
         //        ModelState.AddModelError(string.Empty, ErrorMessage);
         //    }
-
         //    // Clear the existing external cookie
         //    await HttpContext.SignOutAsync(
         //        CookieAuthenticationDefaults.AuthenticationScheme);
-
         //    ReturnUrl = returnUrl;
         //}
     }
