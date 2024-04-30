@@ -1,24 +1,22 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-//using Junction.Data;
 using Final_Junction_Site.Models;
 
 public class UserService : IUserService
 {
-    private readonly ApplicationDbContext _context;
+    private ApplicationDbContext _context;
 
     public UserService(ApplicationDbContext context)
     {
         _context = context;
     }
 
-    public async Task AddUser(Customer customer)
-    {
-        _context.Customer.Add(customer);
-        // _context.Customers.Add(customer);
-        await _context.SaveChangesAsync();
-    }
+    //public async Task AddUser(Customer customer)
+    //{
+    //    _context.Customer.Add(customer);
+    //    await _context.SaveChangesAsync();
+    //}
 
     public async Task<Customer> GetUserByUsernameAndPassword(string username, string password)
     {
@@ -38,11 +36,6 @@ public class UserService : IUserService
         throw new NotImplementedException();
     }
 
-    Task IUserService.RegisterUser(Customer customer)
-    {
-        throw new NotImplementedException();
-    }
-
     Task<Customer> IUserService.AuthenticateUser(string username, string password)
     {
         throw new NotImplementedException();
@@ -56,5 +49,24 @@ public class UserService : IUserService
     Task IUserService.ResetPassword(string token, string newPassword)
     {
         throw new NotImplementedException();
+    }
+
+    public async Task<bool> RegisterUser(Customer customer)
+    {
+        try
+        {
+
+            //MAYBE INCLUDE CHECKS TO MAKE SURE USER DOESNT EXIST BEFORE? LAST PRIORITY THOUGH
+
+            _context.Customer.Add(customer);
+            Console.WriteLine(customer.CustomerId);
+            await _context.SaveChangesAsync();
+            
+            return true;
+        }
+        catch (Exception)
+        {
+            return false;
+        }
     }
 }
