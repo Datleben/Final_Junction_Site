@@ -5,11 +5,13 @@ using System;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Final_Junction_Site.Controllers
 {
     public class AccountController : Controller
     {
+        private readonly ApplicationDbContext _context;
         private Customer customer;
         //public AccountController()
         //{
@@ -22,9 +24,10 @@ namespace Final_Junction_Site.Controllers
 
         private readonly IUserService _userService;
 
-        public AccountController(IUserService userService)
+        public AccountController(IUserService userService, ApplicationDbContext context)
         {
             _userService = userService;
+            _context = context;
         }
 
         public ViewResult Details()
@@ -64,6 +67,15 @@ namespace Final_Junction_Site.Controllers
         {
             return View();
         }
+
+        // GET: /Account/Details
+        [HttpGet("Account/Details")]
+        public IActionResult AccountDetails()
+        {
+            var customers = _context.Customer.ToList(); // Fetches all customer records from the database
+            return View("Details", customers); 
+        }
+
     }
 }
 
