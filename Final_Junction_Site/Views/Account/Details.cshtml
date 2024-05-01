@@ -24,7 +24,7 @@
                 <p class="card-text">Text Notifications: @(Model.SendTextNotifications ? "Yes" : "No")</p>
             </div>
             <div class="card-footer">
-                <a asp-action="Edit" asp-controller="Customer" asp-route-CustomerId="@Model.CustomerId" class="btn btn-primary">Edit Details</a>
+                <a asp-action="Edit" asp-controller="Account" asp-route-editId=@Model.CustomerId class="btn btn-primary">Edit Details</a>
             </div>
         </div>
     }

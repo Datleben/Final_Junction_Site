@@ -1,0 +1,25 @@
+﻿@model Customer
+
+<form asp-action="Edit" method="post">
+	<input type="hidden" asp-for="CustomerId" />
+	<input type="hidden" asp-for="CustomerName" />
+	<input type="hidden" asp-for="CustomerEmail" />
+	<input type="hidden" asp-for="CustomerPassword" />
+	<input type="hidden" asp-for="CustomerAddress" />
+
+	<div class="form-group">
+		<label asp-for="SendTextNotifications">Send Text Notifications</label>
+		<input type="checkbox" asp-for="SendTextNotifications"/>
+	</div>
+
+	<div class="form-group">
+		<label asp-for="SendEmailNotifications">Send Email Notifications</label>
+		<input type="checkbox" asp-for="SendEmailNotifications" />
+	</div>
+
+	<div class="text-center">
+		<button class="btn btn-primary" type="submit">Save</button>
+		<a asp-action="AccountDetails" asp-controller="Account" class="btn btn-default">Cancel</a>
+	</div>
+
+</form>
