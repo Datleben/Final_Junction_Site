@@ -17,8 +17,7 @@ builder.Services.AddTransient<IRatingRepository, EFRatingRepository>();
 builder.Services.AddTransient<ICustomerRepository, EFCustomerRepository>();
 builder.Services.AddTransient<ISiteRepository, SiteRepository>(); // pg 18, add for each table?
 builder.Services.AddTransient<IUserService, UserService>();
-builder.Services.AddScoped<IUserService, UserService>();
-//builder.Services.AddTransient<TestDBRepository>();
+//builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Services.AddMemoryCache();
 builder.Services.AddSession();
@@ -41,7 +40,6 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseAuthentication();
 
 
 // Don't change default route
@@ -64,9 +62,3 @@ app.MapDefaultControllerRoute();
 app.MapRazorPages();
 
 app.Run();
-
-// COMMANDS FOR NUGET DATABASE
-//1. Add-Migration [Initial]
-// In step 1, Initial is first pass (Migration) of data to the database (creating info for making the table), then,
-// use a different name in the brackets to begin another Migration
-//2. Update-Database
