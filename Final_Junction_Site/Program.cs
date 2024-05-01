@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Final_Junction_Site.Models;
 using Microsoft.AspNetCore.Identity;
 using SportsStore.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,11 +17,15 @@ builder.Services.AddTransient<IRatingRepository, EFRatingRepository>();
 builder.Services.AddTransient<ICustomerRepository, EFCustomerRepository>();
 builder.Services.AddTransient<ISiteRepository, SiteRepository>(); // pg 18, add for each table?
 builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddScoped<IUserService, UserService>();
 //builder.Services.AddTransient<TestDBRepository>();
 builder.Services.AddIdentity<AppUser, IdentityRole<Guid>>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 
 builder.Services.AddMemoryCache();
 builder.Services.AddSession();
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie();
 
 var app = builder.Build();
 
@@ -37,6 +42,8 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseAuthentication();
+
 
 // Don't change default route
 app.MapControllerRoute(

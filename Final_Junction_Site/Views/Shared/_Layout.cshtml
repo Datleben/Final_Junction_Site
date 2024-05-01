@@ -84,9 +84,24 @@
             @* <li class="nav-block">
                 <a class="nav-link active black-nav" asp-action="Index">Search Stores</a> Change asp-action to "Stores" View when created
             </li> *@
-            <li class="nav-block">
-                <a class="nav-link active black-nav" asp-controller="Account" asp-action="Register">Account</a> @*Change asp-action to "Account" View when created*@
-            </li>
+            @if (!User.Identity.IsAuthenticated)
+            {
+                <li class="nav-block">
+                    <a class="nav-link active black-nav" asp-controller="Account" asp-action="Register">Create Account</a>
+                </li>
+                <li class="nav-block">
+                    <a class="nav-link active black-nav" asp-controller="Account" asp-action="Login">Login</a>
+                </li>
+            }
+            else
+            {
+                <li class="nav-block">
+                    <a class="nav-link active black-nav" asp-controller="Account" asp-action="Details">@User?.Identity?.Name's Account</a>
+                </li>
+                <li class="nav-block">
+                    <a class="nav-link active black-nav" asp-controller="Account" asp-action="Logout">Logout</a>
+                </li>
+            }
         </ul>
         
     </header>
