@@ -8,6 +8,7 @@ using Final_Junction_Site.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using SportsStore.Models;
 using Microsoft.AspNetCore.Authorization;
+using Final_Junction_Site.Migrations;
 
 namespace Final_Junction_Site.Controllers
 {
@@ -15,13 +16,13 @@ namespace Final_Junction_Site.Controllers
     {
         private IRatingRepository repositoryR;
 		private ICustomerRepository repositoryC;
-        private UserManager<AppUser> userManager;
+        private readonly IUserService _userService;
         public int PageSize = 4;
-        public RatingController(IRatingRepository repoR, ICustomerRepository repoC, UserManager<AppUser> userMgr)
+        public RatingController(IRatingRepository repoR, ICustomerRepository repoC, IUserService userService)
         {
             repositoryR = repoR;
             repositoryC = repoC;
-            userManager = userMgr;
+            _userService = userService;
         }
 
         public ViewResult List(int siteId, int page = 1)
@@ -43,26 +44,32 @@ namespace Final_Junction_Site.Controllers
         }
 
         //public ViewResult Edit(int RatingId) => View(repository.Ratings.FirstOrDefault(r => r.RatingId == RatingId));
-        [Authorize]
         public async Task<IActionResult> Create(int siteId)
         {
-            AppUser user = await userManager.GetUserAsync(User);
-            int customerId = user.customerId;
-            Rating customerSiteReview = repositoryR.Ratings.FirstOrDefault(r => r.CustomerId == customerId && r.SiteId == siteId );
-
-            ViewBag.CustomerId = customerId;
-            ViewBag.SiteId = siteId;
-            if (customerSiteReview is not null)
+            if (User.Identity.IsAuthenticated)
             {
-                return View("Edit", customerSiteReview);
+                string userName = User.Identity.Name;
+                Customer user = await _userService.GetUserByName(userName);
+                int customerId = user.CustomerId;
+                Rating customerSiteReview = repositoryR.Ratings.FirstOrDefault(r => r.CustomerId == customerId && r.SiteId == siteId);
+
+                ViewBag.CustomerId = customerId;
+                ViewBag.SiteId = siteId;
+                if (customerSiteReview is not null)
+                {
+                    return View("Edit", customerSiteReview);
+                }
+                else
+                {
+                    return View("Edit", new Rating());
+                }
             }
             else {
-                return View("Edit", new Rating());
+                return RedirectToAction("Login", "Account");
             }
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> Edit(Rating rating, int routingSiteId)
         {
             if (ModelState.IsValid)
