@@ -1,6 +1,26 @@
 ﻿@model Login
-<h2>Login</h2>
 
+<style>
+    .login-box{
+        background-color: #6AA49B;
+        padding: 20px;
+        text-align: center;
+        border-radius: 10px;
+        width: 25%;
+    }
+
+    .login-row{
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .login-item{
+        width: 50%;
+    }
+</style>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.5.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<h2>Login</h2>
 @using (Html.BeginForm("Login", "Account", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
@@ -17,22 +37,27 @@
         }
     </div>
 
-    <div>
-        @Html.LabelFor(m => m.Email)
-        @Html.TextBoxFor(m => m.Email)
-        @Html.ValidationMessageFor(m => m.Email)
+    <div class="login-box">
+        <div class="login-row">
+            <div style="width: 30%; font-weight: 600; text-align: right">@Html.LabelFor(m => m.Email):</div>
+            <div style="width: 70%; font-weight: 600">@Html.TextBoxFor(m => m.Email)</div>
+            
+        </div>
+
+        <div class="login-row">
+            <div style="width: 30%; font-weight: 600; text-align: right">@Html.LabelFor(m => m.Password):</div>
+            <div style="width: 70%; font-weight: 600">@Html.PasswordFor(m => m.Password)</div>
+        </div>
     </div>
 
-    <div>
-        @Html.LabelFor(m => m.Password)
-        @Html.PasswordFor(m => m.Password)
-        @Html.ValidationMessageFor(m => m.Password)
-    </div>
+    <button style="margin-top: 10px" type="submit" class="btn btn-secondary">Login</button><br/>
+    
+    @Html.ValidationMessageFor(m => m.Email)<br/>
+    @Html.ValidationMessageFor(m => m.Password)<br/>
 
-    <button type="submit">Login</button>
 
     @if (ViewBag.ErrorMessage != null)
-    {
-        <p class="error">@ViewBag.ErrorMessage</p>
-    }
+        {
+            <p class="error">@ViewBag.ErrorMessage</p>
+        }
 }
