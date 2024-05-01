@@ -19,7 +19,6 @@ builder.Services.AddTransient<ISiteRepository, SiteRepository>(); // pg 18, add 
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddScoped<IUserService, UserService>();
 //builder.Services.AddTransient<TestDBRepository>();
-builder.Services.AddIdentity<AppUser, IdentityRole<Guid>>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 
 builder.Services.AddMemoryCache();
 builder.Services.AddSession();
