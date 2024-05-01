@@ -6,7 +6,7 @@ using SportsStore.Models;
 
 namespace Final_Junction_Site.Models
 {
-    public class ApplicationDbContext : IdentityDbContext<AppUser, IdentityRole<Guid>, Guid>
+    public class ApplicationDbContext : DbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
