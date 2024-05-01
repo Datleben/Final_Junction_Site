@@ -93,15 +93,6 @@ namespace Final_Junction_Site.Controllers
         {
             string userName = User.Identity.Name;
 
-            //DAVID: THE SETTING OF DEFAULT USERNAME SHOULDN'T BE NEEDED ANYMORE
-
-            /// ONLY FOR TESTING PURPOSES DELETE
-            //if (string.IsNullOrEmpty(userName))
-            //{
-            //    // Set userName to the default customer's name or ID
-            //    userName = "Matthew"; // Assuming "Matthew" is no 1 // 
-            //}
-
             var customer = await _userService.GetUserByName(userName);
             if (customer == null)
             {
