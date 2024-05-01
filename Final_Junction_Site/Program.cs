@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Final_Junction_Site.Models;
+using Microsoft.AspNetCore.Identity;
+using SportsStore.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,10 +14,15 @@ builder.Services.AddControllersWithViews();
 
 //Add when Rating Interface and Repository are created
 builder.Services.AddTransient<IRatingRepository, EFRatingRepository>();
+builder.Services.AddTransient<ICustomerRepository, EFCustomerRepository>();
 builder.Services.AddTransient<ISiteRepository, SiteRepository>(); // pg 18, add for each table?
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddScoped<IUserService, UserService>();
 //builder.Services.AddTransient<TestDBRepository>();
+builder.Services.AddIdentity<AppUser, IdentityRole<Guid>>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+
+builder.Services.AddMemoryCache();
+builder.Services.AddSession();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie();
@@ -32,15 +39,11 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 app.UseAuthentication();
 
-
-// REMOVE THIS DEFAULT ROUTE (ONLY FOR TESTING)
-// remove default from sitecontroller details method parameter
 
 // Don't change default route
 app.MapControllerRoute(
@@ -57,6 +60,7 @@ app.MapControllerRoute(
     pattern: "ResultPage/{searchQuery?}",
     defaults: new { controller = "ResultPage", action = "ResultPage" }
 );
+app.UseSession();
 app.MapDefaultControllerRoute();
 app.MapRazorPages();
 
