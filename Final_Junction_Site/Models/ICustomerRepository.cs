@@ -3,5 +3,7 @@
 	public interface ICustomerRepository
 	{
 		public IEnumerable<Customer> Customers { get; }
-	}
+
+        void SaveCustomer(Customer customer);
+    }
 }

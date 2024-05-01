@@ -26,6 +26,26 @@ namespace Final_Junction_Site.Controllers
             repositoryC = repoC;
         }
 
+        public ViewResult Edit(int editId)
+        {
+            Customer toEdit = repositoryC.Customers.FirstOrDefault(c => c.CustomerId == editId);
+			return View(toEdit);
+        }
+
+        [HttpPost]
+        public ViewResult Edit(Customer customer)
+        {
+            if (ModelState.IsValid)
+            {
+                repositoryC.SaveCustomer(customer);
+                return View("Details", customer);
+            }
+            else
+            {
+                return View("Edit",customer);
+            }
+        }
+
         public ViewResult Details()
         {
             return View(customer);
