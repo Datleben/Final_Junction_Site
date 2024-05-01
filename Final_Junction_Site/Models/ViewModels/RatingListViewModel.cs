@@ -7,5 +7,6 @@ namespace Final_Junction_Site.Models.ViewModels
     {
         public IEnumerable<Rating> Ratings { get; set; }
         public PagingInfo PagingInfo { get; set; }
+        public IEnumerable<Customer> Customers { get; set; }
     }
 }
