@@ -170,6 +170,23 @@ namespace Final_Junction_Site.Controllers
             TempData["loginActionMessages"] = "You have successfully logged out";
             return RedirectToAction("Index", "Home");
         }
+        public async Task<IActionResult> DeleteAccount()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var currentUser = await _userService.GetUserByName(User.Identity.Name);
+                if (currentUser != null)
+                {
+                    await _userService.DeleteUser(currentUser);
+                    await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+                    TempData["SuccessMessage"] = "Your account has been deleted successfully.";
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+
+            return RedirectToAction("Index", "Home");
+        }
     }
 }
 
