@@ -41,10 +41,10 @@ public class UserService : IUserService
         }
         return user;
     }
-
-    Task IUserService.SendPasswordResetEmail(string email)
+    public async Task DeleteUser(Customer customer)
     {
-        throw new NotImplementedException();
+        _context.Customer.Remove(customer);
+        await _context.SaveChangesAsync();
     }
 
     Task IUserService.ResetPassword(string token, string newPassword)
@@ -57,10 +57,7 @@ public class UserService : IUserService
         try
         {
 
-            //MAYBE INCLUDE CHECKS TO MAKE SURE USER DOESNT EXIST BEFORE? LAST PRIORITY THOUGH
-
             _context.Customer.Add(customer);
-            Console.WriteLine(customer.CustomerId);
             await _context.SaveChangesAsync();
             
             return true;
