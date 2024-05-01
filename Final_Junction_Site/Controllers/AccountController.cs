@@ -7,20 +7,23 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Final_Junction_Site.Migrations;
 
 namespace Final_Junction_Site.Controllers
 {
     public class AccountController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private ICustomerRepository repositoryC;
         private Customer customer;
 
         private readonly IUserService _userService;
 
-        public AccountController(IUserService userService, ApplicationDbContext context)
+        public AccountController(IUserService userService, ApplicationDbContext context, ICustomerRepository repoC)
         {
             _userService = userService;
             _context = context;
+            repositoryC = repoC;
         }
 
         public ViewResult Details()
@@ -44,6 +47,13 @@ namespace Final_Junction_Site.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(Customer customer)
         {
+            Customer matchingAccount = repositoryC.Customers.FirstOrDefault(c => c.CustomerName == customer.CustomerName);
+
+            if (matchingAccount is not null) {
+                ModelState.AddModelError("", "Username is taken. Please select a new Username");
+                return View(customer);
+            }
+
             if (ModelState.IsValid)
             {
                 var newCustomer = new Customer
